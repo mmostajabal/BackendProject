@@ -51,11 +51,15 @@ public class ProductForm extends javax.swing.JFrame {
 
         jLabel3.setText("Product Desc");
 
-        jTextField2.setText("jTextField2");
+        jTextField2.setName("ProductDesc"); // NOI18N
 
         jLabel4.setText("Price");
 
+        jTextField3.setName("price"); // NOI18N
+
         jLabel5.setText("Unit ");
+
+        jTextField4.setName("UnitDesc"); // NOI18N
 
         jButton1.setText("Save");
 
@@ -75,9 +79,9 @@ public class ProductForm extends javax.swing.JFrame {
                             .addComponent(jLabel5))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBox1, 0, 231, Short.MAX_VALUE)
                             .addComponent(jTextField1)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+                            .addComponent(jTextField2)
                             .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField4)))
                     .addGroup(layout.createSequentialGroup()
