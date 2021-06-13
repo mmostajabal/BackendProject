@@ -1,3 +1,12 @@
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -27,47 +36,228 @@ public class CategoryForm extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        CategoryDescTxt = new javax.swing.JTextField();
+        SaveBtn = new javax.swing.JButton();
+        StatusCombo = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        CategoryId = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        categorytable = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setAlwaysOnTop(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setText("Category Desc");
 
-        jTextField1.setName("CategoryDesc"); // NOI18N
+        CategoryDescTxt.setName("CategoryDesc"); // NOI18N
 
-        jButton1.setLabel("Save");
+        SaveBtn.setLabel("Save");
+        SaveBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SaveBtnActionPerformed(evt);
+            }
+        });
+
+        StatusCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active", "Deactive" }));
+        StatusCombo.setToolTipText("");
+
+        jLabel2.setText("Status");
+
+        CategoryId.setToolTipText("");
+
+        categorytable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Id", "CategoryDesc"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        categorytable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                categorytableMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                categorytableMousePressed(evt);
+            }
+        });
+        jScrollPane2.setViewportView(categorytable);
+        if (categorytable.getColumnModel().getColumnCount() > 0) {
+            categorytable.getColumnModel().getColumn(0).setResizable(false);
+            categorytable.getColumnModel().getColumn(1).setResizable(false);
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(SaveBtn)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(24, 24, 24)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(CategoryDescTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(StatusCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(42, 42, 42)
+                                .addComponent(CategoryId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(106, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(159, 159, 159))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(46, 46, 46)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
-                .addComponent(jButton1)
-                .addContainerGap(175, Short.MAX_VALUE))
+                    .addComponent(CategoryDescTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(StatusCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(CategoryId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(SaveBtn)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    /*********************************************************
+     * formWindowOpened
+     * @param evt 
+     */
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        CategoryId.setVisible(false);
+        LoadCategoryInf();
+        
+    }//GEN-LAST:event_formWindowOpened
+    private void LoadCategoryInf(){
+        DefaultTableModel catTable = new DefaultTableModel();
+        try {
+    
+            CrudClass crudClass = new CrudClass();
+             
+            String sqlStr = "";
+            sqlStr = "select id, CategoryDesc from tproductscategory where IsActive = 0";
 
+            ResultSet rs = crudClass.ReadData(sqlStr);
+            
+            catTable = crudClass.resultSetToTableModel(rs);
+            catTable.setNumRows(100);
+            catTable.setRowCount(100);
+            
+            categorytable.setModel(catTable);
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoryForm.class.getName()).log(Level.SEVERE, null, ex);
+        }catch (ClassNotFoundException ex) {
+                Logger.getLogger(CategoryForm.class.getName()).log(Level.SEVERE, null, ex);
+        }   
+        
+        //return catTable;
+    }
+    /*****************************************************************
+     * SaveBtnActionPerformed
+     * @param evt 
+     */
+    private void SaveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveBtnActionPerformed
+        try{
+            CrudClass crudClass = new CrudClass();
+             
+            String sqlStr = "";
+            if(CategoryId.getText().trim() == ""){
+                sqlStr = "insert into tproductscategory(CategoryDesc, IsActive) Values (";
+                sqlStr += "'" + CategoryDescTxt.getText() + "'";
+                sqlStr += ", " + StatusCombo.getSelectedIndex() ;
+                sqlStr += ")";
+
+            }else{
+                sqlStr = " update tproductscategory set CategoryDesc = '" + CategoryDescTxt.getText() + "'";
+                sqlStr += ", IsActive = " + StatusCombo.getSelectedIndex() ;
+                sqlStr += " where id = " + CategoryId.getText().trim(); 
+            }
+            if(crudClass.RunSql(sqlStr) > 0 ) {
+                JOptionPane.showMessageDialog(null, "Update Inf Successfully");
+                ResetForm();
+            }else{
+                JOptionPane.showMessageDialog(null, "Goes something Wrong");
+            }     
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoryForm.class.getName()).log(Level.SEVERE, null, ex);
+        }catch (ClassNotFoundException ex) {
+                Logger.getLogger(CategoryForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+    }//GEN-LAST:event_SaveBtnActionPerformed
+
+    private void categorytableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_categorytableMouseClicked
+        // TODO add your handling code here:
+        selectedRows();
+    }//GEN-LAST:event_categorytableMouseClicked
+
+    private void categorytableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_categorytableMousePressed
+        // TODO add your handling code here:
+        selectedRows();
+    }//GEN-LAST:event_categorytableMousePressed
+    private void selectedRows(){
+        int ind = categorytable.getSelectedRow();
+        TableModel model = categorytable.getModel();
+        
+        String Id= model.getValueAt(ind, 0).toString();
+        String CategoryDesc= model.getValueAt(ind, 1).toString();
+
+        CategoryId.setText(Id);
+        CategoryDescTxt.setText(CategoryDesc);
+        StatusCombo.setSelectedIndex(0);
+    }
+            
+    /***********************************************************
+     *  ResetForm
+     */
+    private void ResetForm(){
+        CategoryDescTxt.setText("");
+        StatusCombo.setSelectedIndex(0);
+        CategoryId.setText("");
+        LoadCategoryInf();
+    }
     /**
      * @param args the command line arguments
      */
@@ -104,8 +294,13 @@ public class CategoryForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTextField CategoryDescTxt;
+    private javax.swing.JTextField CategoryId;
+    private javax.swing.JButton SaveBtn;
+    private javax.swing.JComboBox<String> StatusCombo;
+    private javax.swing.JTable categorytable;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

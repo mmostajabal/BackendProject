@@ -9,23 +9,33 @@
  * @author Mohammad
  */
 public class Category {
-    private Integer _CategoryId;
-    private Integer _CategoryDesc;    
+    private String _CategoryId;
+    private String _CategoryDesc;    
 
-    public Integer getCategoryId() {
+    public Category(String _CategoryId, String _CategoryDesc) {
+        this._CategoryId = _CategoryId;
+        this._CategoryDesc = _CategoryDesc;
+    }
+
+    public String getCategoryId() {
         return _CategoryId;
     }
 
-    public void setCategoryId(Integer _CategoryId) {
+    public void setCategoryId(String _CategoryId) {
         this._CategoryId = _CategoryId;
     }
 
-    public Integer getCategoryDesc() {
+    public String getCategoryDesc() {
         return _CategoryDesc;
     }
 
-    public void setCategoryDesc(Integer _CategoryDesc) {
+    public void setCategoryDesc(String _CategoryDesc) {
         this._CategoryDesc = _CategoryDesc;
     }
-    
+ 
+    @Override
+    public String toString() {
+        return this._CategoryDesc;
+    }
+
 }

@@ -31,16 +31,11 @@ public class FirstPage extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
+        ProductCategoryMenuItem = new javax.swing.JMenuItem();
+        ProductMenuItem = new javax.swing.JMenuItem();
+        UserMenuItem = new javax.swing.JMenuItem();
+        OrderItemMenu = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenu8 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu6 = new javax.swing.JMenu();
-        jMenu7 = new javax.swing.JMenu();
 
         jMenu3.setText("jMenu3");
 
@@ -49,42 +44,47 @@ public class FirstPage extends javax.swing.JFrame {
         jMenu1.setText("jMenu1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
 
         jMenu2.setText("Base");
 
-        jMenuItem2.setText("Product");
-        jMenu2.add(jMenuItem2);
+        ProductCategoryMenuItem.setText("Product Category");
+        ProductCategoryMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProductCategoryMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(ProductCategoryMenuItem);
 
-        jMenuItem3.setText("User");
-        jMenu2.add(jMenuItem3);
+        ProductMenuItem.setText("Product");
+        ProductMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProductMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(ProductMenuItem);
 
-        jMenuItem6.setText("Product Category");
-        jMenu2.add(jMenuItem6);
+        UserMenuItem.setText("User");
+        UserMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UserMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(UserMenuItem);
 
         jMenuBar1.add(jMenu2);
 
-        jMenu5.setText("Order");
+        OrderItemMenu.setText("Order");
 
         jMenuItem4.setText("New order");
-        jMenu5.add(jMenuItem4);
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        OrderItemMenu.add(jMenuItem4);
 
-        jMenuItem5.setText("Track Order");
-        jMenu5.add(jMenuItem5);
-
-        jMenuBar1.add(jMenu5);
-
-        jMenu8.setText("Warehouse");
-
-        jMenuItem1.setText("Update Stock");
-        jMenu8.add(jMenuItem1);
-
-        jMenuBar1.add(jMenu8);
-
-        jMenu6.setText("Reports");
-        jMenuBar1.add(jMenu6);
-
-        jMenu7.setText("Quit");
-        jMenuBar1.add(jMenu7);
+        jMenuBar1.add(OrderItemMenu);
 
         setJMenuBar(jMenuBar1);
 
@@ -101,6 +101,34 @@ public class FirstPage extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    /************************************************************************
+     * ProductCategoryMenuItemActionPerformed
+     * @param evt 
+     */
+    private void ProductCategoryMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProductCategoryMenuItemActionPerformed
+        // TODO add your handling code here:
+      CategoryForm categoryForm = new CategoryForm();
+      categoryForm.setVisible(true);
+    }//GEN-LAST:event_ProductCategoryMenuItemActionPerformed
+
+    private void ProductMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProductMenuItemActionPerformed
+        // TODO add your handling code here:
+      ProductForm productForm = new ProductForm();
+      productForm.setVisible(true);
+        
+    }//GEN-LAST:event_ProductMenuItemActionPerformed
+
+    private void UserMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserMenuItemActionPerformed
+        // TODO add your handling code here:
+        DefineUser duser = new DefineUser();
+        duser.setVisible(true);
+    }//GEN-LAST:event_UserMenuItemActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        OderForm order = new OderForm();
+        order.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -138,20 +166,15 @@ public class FirstPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu OrderItemMenu;
+    private javax.swing.JMenuItem ProductCategoryMenuItem;
+    private javax.swing.JMenuItem ProductMenuItem;
+    private javax.swing.JMenuItem UserMenuItem;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
-    private javax.swing.JMenu jMenu7;
-    private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     // End of variables declaration//GEN-END:variables
 }

@@ -14,6 +14,7 @@ public class OrderClass {
     private Integer _QTY;
     private Integer _UserId;
     private Integer _Status;
+    private String _orderNo;
 
     public Integer getOrderId() {
         return _OrderId;
@@ -53,6 +54,14 @@ public class OrderClass {
 
     public void setStatus(Integer _Status) {
         this._Status = _Status;
+    }
+
+    public String getOrderNo() {
+        return _orderNo;
+    }
+
+    public void setOrderNo(String _orderNo) {
+        this._orderNo = _orderNo;
     }
     
     
